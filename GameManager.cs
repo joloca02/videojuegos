@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-        List<string> Nombres = new List<string> {"Scorpion", "Kano", "Sonya", "Johnny Cage", "Sub-zero"};
-        List<string> Categorias = new List<string> { "Ninja", "Mercenario", "Teniente", "Actor", "Ninja"};
+    public GameObject CartaPrefab;
     // Start is called before the first frame update
     void Start()
     {
-
-        initFighters();
+        List<GameObject> Cartas = new List<GameObject>();
+        for (int i = 1; i < 11; i++)
+        {
+            if (i < 6)
+            {
+                GameObject nueva_carta = Instantiate(CartaPrefab, new Vector3(-9, 2, 0) + Vector3.right * 3 * i, Quaternion.identity);
+                nueva_carta.name = "Card" + i;
+                Cartas.Add(nueva_carta);
+            }
+            else
+            {
+                GameObject nueva_carta = Instantiate(CartaPrefab, new Vector3(-9, -2, 0) + Vector3.right*3 * (i - 5), Quaternion.identity);
+                Cartas.Add(nueva_carta);
+                nueva_carta.name = "Card" + i;
+            }
+        }
     }
-
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    void initFighters()
-    {
-        GameObject[] e;
-        e = GameObject.FindGameObjectsWithTag("Fighter");
-        for (int i = 0; i < e.Length; i++)
-        {
-            Fighter f = e[i].GetComponent<Fighter>();
-            f.Name = Nombres[i];
-            f.Category = Categorias[i];
-            f.Health = 100;
-        }
+
     }
 }
